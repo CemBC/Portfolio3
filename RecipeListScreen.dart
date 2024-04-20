@@ -25,4 +25,26 @@ class _RecipeListScreenState extends State<RecipeListScreen> {
       recipes = parsedRecipes.where((recipe) => recipe['category'] == widget.category).take(3).toList();
     });
   }
+
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Recipes")),
+      body: ListView.builder(
+        itemCount: recipes.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text(recipes[index]['name']),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => IngredientsScreen(ingredients: recipes[index]['ingredients']),
+                ),
+              );
+            },
+          );
+        },
+      ),
+    );
+  }
 }
